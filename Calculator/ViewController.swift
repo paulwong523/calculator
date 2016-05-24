@@ -13,10 +13,35 @@ class ViewController: UIViewController {
   // Mark: Variables
 
   @IBOutlet weak var calculationLabel: UILabel!
+  var userIsEnteringNumber = false
+  var operationStack = Array <Double> ()
+  var calculationValue: Double {
+    get {
+      return NSNumberFormatter ().numberFromString(calculationLabel.text!)!.doubleValue
+    } set {
+      calculationLabel.text = "\(newValue)"
+    }
+    }
   
   // Mark: Buttons
-  @IBAction func clearButton(sender: AnyObject) {
+  
+  @IBAction func enterNumber(sender: UIButton) {
+    let digit = sender.currentTitle!
+    
+    if userIsEnteringNumber {
+      calculationLabel.text = calculationLabel.text! + digit
+    } else {
+      calculationLabel.text = digit
+      userIsEnteringNumber = true
+      
+    }
   }
+  @IBAction func clearButton(sender: AnyObject) {
+    calculationValue = 0
+    calculationLabel.text = "\(calculationValue)"
+  }
+  
+
   @IBAction func postiveNegativeButton(sender: AnyObject) {
   }
   
@@ -24,6 +49,8 @@ class ViewController: UIViewController {
   }
   
   @IBAction func divideButton(sender: AnyObject) {
+    func divide (op1: Double, op2: Double) -> Double {
+      return op1 / op2 }
   }
   
   @IBAction func sevenButton(sender: AnyObject) {
@@ -37,6 +64,8 @@ class ViewController: UIViewController {
   
   
   @IBAction func multiplyButton(sender: AnyObject) {
+    func multiply (op1: Double, op2: Double) -> Double {
+      return op1 * op2 }
   }
   
   @IBAction func fourButton(sender: AnyObject) {
@@ -49,6 +78,9 @@ class ViewController: UIViewController {
   }
   
   @IBAction func minusButton(sender: AnyObject) {
+    func minus (op1: Double, op2: Double) -> Double {
+      return op1 - op2 }
+    
   }
   
   @IBAction func oneButton(sender: AnyObject) {
@@ -61,6 +93,8 @@ class ViewController: UIViewController {
   }
   
   @IBAction func plusButton(sender: AnyObject) {
+    func add (op1: Double, op2: Double) -> Double {
+      return op1 + op2 }
   }
   
   @IBAction func zeroButton(sender: AnyObject) {
@@ -70,6 +104,9 @@ class ViewController: UIViewController {
   }
   
   @IBAction func calculateButton(sender: AnyObject) {
+    userIsEnteringNumber = false
+    operationStack.append(calculationValue)
+    
   }
   
   
